@@ -34,10 +34,10 @@ export const ItemImage = styled.div`
   margin: 0 auto;
   background-color: #eeeeee;
 
-  img {
+  > img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 `;
 
@@ -46,6 +46,7 @@ export const ListWrapper = styled.div`
   width: 250px;
   height: 320px;
   margin: 0 16px 32px 16px;
+  cursor: pointer;
 `;
 
 export const ContentsBox = styled.div`

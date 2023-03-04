@@ -17,6 +17,12 @@ export const ImageBox = styled.div`
   width: 480px;
   height: 480px;
   margin-right: 68px;
+
+  > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
 `;
 
 export const NameBox = styled.div`
@@ -35,7 +41,7 @@ export const ImageBtn = styled.button`
   margin-left: 16px;
 `;
 
-export const Divid1 = styled.div`
+export const Divide1 = styled.div`
   border-top: 3px solid rgba(85, 85, 85, 1);
   margin-top: 20px;
 `;
@@ -46,14 +52,7 @@ export const Price = styled.span`
   margin-right: 8px;
 `;
 
-export const ItemContents = styled.div`
-  width: 801px;
-  height: 207px;
-  padding-top: 22px;
-  padding-left: 10px;
-`;
-
-export const Divid2 = styled.div`
+export const Divide2 = styled.div`
   border-top: 1px solid rgba(85, 85, 85, 1);
   margin-top: 5px;
   margin-bottom: 35px;
@@ -115,11 +114,29 @@ export const ItemInfo = styled.div`
   font-weight: 700;
 `;
 
-export const Divid3 = styled.div`
+export const Divide3 = styled.div`
   border-top: 3px solid rgba(85, 85, 85, 1);
   margin-top: 30px;
   margin-bottom: 19px;
   width: 925px;
+`;
+
+export const Images = styled.div`
+  width: 801px;
+  height: 207px;
+  margin-right: 68px;
+
+  > img {
+    width: 100%;
+    object-fit: cover;
+  }
+`;
+
+export const ItemContents = styled.div`
+  width: 801px;
+  height: 207px;
+  padding-top: 22px;
+  padding-left: 10px;
 `;
 
 export const Location = styled.div`
@@ -132,13 +149,13 @@ export const RightBox = styled.div`
   height: 1170px;
 `;
 
-export const Divid4 = styled.div`
+export const Divide4 = styled.div`
   border-top: 3px solid rgba(85, 85, 85, 1);
   width: 385px;
   margin-top: 30px;
-  margin-bottom: 19px;
+  margin-bottom: 32px;
 `;
-export const Divid5 = styled.div`
+export const Divide5 = styled.div`
   border-top: 1px solid rgba(85, 85, 85, 1);
   width: 385px;
   margin-top: 33px;

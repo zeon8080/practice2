@@ -11,7 +11,7 @@ export const LoginCheck = (): void => {
     void aaa.toPromise().then((newAccessToken) => {
       if (newAccessToken === undefined) {
         alert("로그인 후에 이용해주세요.");
-        void router.push("/log-in");
+        void router.push("/usedItems/login");
       }
     });
   }, []);

@@ -13,7 +13,7 @@ export default function LogInForm() {
     mode: "onChange",
   });
   const onClickJoin = (): void => {
-    void router.push("/join");
+    void router.push("/usedItems/sign");
   };
   return (
     <S.Container>

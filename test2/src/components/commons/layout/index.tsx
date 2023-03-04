@@ -1,9 +1,16 @@
+import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 
 import LayoutHeader from "./header";
+import LayoutRecent from "./recent";
 interface ILayoutProps {
   children: JSX.Element;
 }
+
+const LayoutBox = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 export default function Layout(props: ILayoutProps): JSX.Element {
   const router = useRouter();
@@ -33,6 +40,7 @@ export default function Layout(props: ILayoutProps): JSX.Element {
   return (
     <div>
       <LayoutHeader />
+      <LayoutRecent />
       <div>{props.children}</div>
     </div>
   );

@@ -1,13 +1,16 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import DOMPurify from "dompurify";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import {
   IMutation,
   IMutationDeleteUseditemArgs,
   IMutationToggleUseditemPickArgs,
   IQuery,
   IQueryFetchUseditemArgs,
+  IUseditem,
 } from "../../../../commons/types/generated/types";
+import { LoginCheck } from "../../../commons/hocs/withAuth";
 import QuestionWrite from "../comment/comment.index";
 import CommentList from "../comment/recomment.index";
 import * as S from "./detail.styles";
@@ -82,7 +85,7 @@ export default function ItemDetail(): JSX.Element {
       },
     });
     alert("삭제되었습니다.");
-    router.push("/http://localhost:3000/");
+    router.push("http://localhost:3000");
   };
 
   const onClickPick = () => {
@@ -92,17 +95,42 @@ export default function ItemDetail(): JSX.Element {
       },
     });
   };
+  const [basketState, setBasketState] = useState();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const basketFunc = () => {
+        let basketRecent = JSON.parse(localStorage.getItem("todays"));
+        setBasketState(basketRecent);
+      };
+
+      basketFunc();
+    }
+  }, []);
+
+  const onClickBasket = (basket: IUseditem) => () => {
+    const baskets: IUseditem[] = JSON.parse(
+      localStorage.getItem("baskets") ?? "[]"
+    );
+    const temp = baskets.filter((el) => el._id === basket._id);
+    if (temp.length >= 1) {
+      alert("이미 장바구니에 있습니다.");
+      return;
+    }
+    baskets.push(basket);
+    localStorage.setItem("baskets", JSON.stringify(baskets));
+  };
+
+  LoginCheck();
 
   return (
     <>
       <S.Container>
         <S.TopWrapper>
           <S.ImageBox>
-            {data?.fetchUseditem.images
-              ?.filter((el) => el)
-              .map((el) => (
-                <img key={el} src={`https://storage.googleapis.com/${el}`} />
-              ))}
+            <img
+              src={`https://storage.googleapis.com/${data?.fetchUseditem.images?.[0]}`}
+            />
           </S.ImageBox>
           <div>
             <S.NameBox>
@@ -119,16 +147,16 @@ export default function ItemDetail(): JSX.Element {
 
             <S.Price>{data?.fetchUseditem?.price}</S.Price>
             <span>원</span>
-            <S.Divid1></S.Divid1>
+            <S.Divide1></S.Divide1>
             <S.ItemContents>
               {data?.fetchUseditem?.remarks}
               <div>태그</div>
             </S.ItemContents>
 
-            <S.Divid2></S.Divid2>
+            <S.Divide2></S.Divide2>
             <S.BtnBox>
               <S.PickBtn onClick={onClickPick}>찜</S.PickBtn>
-              <S.BasketBtn>장바구니</S.BasketBtn>
+              <S.BasketBtn onClick={onClickBasket}>장바구니</S.BasketBtn>
               <S.BuyBtn>바로구매</S.BuyBtn>
             </S.BtnBox>
           </div>
@@ -136,8 +164,23 @@ export default function ItemDetail(): JSX.Element {
         <S.BodyWrapper>
           <S.LeftBox>
             <S.ItemInfo>상품정보</S.ItemInfo>
-            <S.Divid3></S.Divid3>
+            <S.Divide3></S.Divide3>
             <S.ItemContents>
+              {/* <S.Images>
+                {data?.fetchUseditem.images
+                  ?.filter((el) => el)
+                  .map(
+                    (el) => (
+                      console.log(el),
+                      (
+                        <img
+                          key={el}
+                          src={`https://storage.googleapis.com/${el}`}
+                        />
+                      )
+                    )
+                  )}
+              </S.Images> */}
               {typeof window !== "undefined" && (
                 <div
                   dangerouslySetInnerHTML={{
@@ -152,14 +195,14 @@ export default function ItemDetail(): JSX.Element {
           </S.LeftBox>
           <S.RightBox>
             <S.ItemInfo>상점정보</S.ItemInfo>
-            <S.Divid4></S.Divid4>
+            <S.Divide4></S.Divide4>
             <S.Profile>
               <img src="/profile.png" />
               <S.Seller>{data?.fetchUseditem?.seller?.name}</S.Seller>
             </S.Profile>
-            <S.Divid5></S.Divid5>
+            <S.Divide5></S.Divide5>
             <S.Comment>댓글</S.Comment>
-            <S.Divid4></S.Divid4>
+            <S.Divide4></S.Divide4>
             <QuestionWrite />
             <CommentList />
           </S.RightBox>

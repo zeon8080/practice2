@@ -12,10 +12,10 @@ export const Wrapper = styled.div`
   box-sizing: border-box;
   border-radius: 7px;
   border: 1px solid #ffffff;
-  height: 802px;
-  width: 742px;
+  height: 980px;
+  width: 1200px;
   background-color: rgba(255, 255, 255, 1);
-  padding: 81px 69px 69px 73px;
+  padding: 75px 97px 140px 97px;
   filter: drop-shadow(0px 5px 7px rgba(0, 0, 0, 0.07));
 `;
 
@@ -26,17 +26,27 @@ export const Title = styled.span`
 
 export const SubTitle = styled.span`
   font-size: 32px;
-  margin-left: 12.41px;
+  margin-left: 30px;
 `;
 
+export const Span = styled.span`
+  font-size: 24px;
+`;
 export const Divid = styled.div`
   border-top: 1px solid #c9c9c9;
   margin-top: 37px;
   margin-bottom: 81px;
 `;
 
+export const InputRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const Input = styled.input`
-  width: 100%;
+  width: 786.96px;
   height: 77.48px;
   background-color: rgba(246, 246, 246, 1);
   border-radius: 10px;
@@ -44,7 +54,7 @@ export const Input = styled.input`
 `;
 
 export const Input2 = styled.input`
-  width: 100%;
+  width: 786.96px;
   height: 77.48px;
   background-color: rgba(246, 246, 246, 1);
   border-radius: 10px;
@@ -53,22 +63,33 @@ export const Input2 = styled.input`
 
 export const ButtonsBox = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
 `;
 
 export const LogInBtn = styled.button`
   all: unset;
-  width: 100%;
-  height: 88px;
+  width: 330px;
+  height: 70px;
   text-align: center;
   font-size: 20px;
-  border: 1px solid #ffe004;
-  border-radius: 10px;
   cursor: pointer;
   background-color: rgba(255, 224, 4, 1);
-  margin-bottom: 39px;
+  margin-bottom: 47px;
+`;
+
+export const CancelBtn = styled.button`
+  all: unset;
+  width: 330px;
+  height: 70px;
+  text-align: center;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+  background-color: black;
+  margin-bottom: 47px;
+  margin-left: 21px;
 `;
 
 export const Error1 = styled.div`
