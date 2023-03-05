@@ -50,7 +50,6 @@ export default function ItemWrite(props: IItemWrite) {
       useditemId: String(router.query.useditemId),
     },
   });
-  console.log(data);
 
   const { onClickNew, onChangeFile, imageUrls } = useClickNew();
   const { onClickEdit } = useClickEdit();
@@ -84,7 +83,7 @@ export default function ItemWrite(props: IItemWrite) {
       <S.Container>
         <S.Wrapper>
           <S.Title>상품 {props.isEdit ? "수정" : "등록"}</S.Title>
-          <S.Dived></S.Dived>
+          <S.Divide></S.Divide>
           <S.InputBox>
             <S.Texts>상품명</S.Texts>
             <S.Input
@@ -106,7 +105,7 @@ export default function ItemWrite(props: IItemWrite) {
           <S.InputBox>
             <S.Texts>상품 내용</S.Texts>
             <ReactQuill
-              style={{ width: "1136px", height: "431px", marginBottom: "39px" }}
+              style={{ width: "1117px", height: "431px", marginBottom: "39px" }}
               onChange={onChangeContents}
               placeholder="상품을 설명해주세요."
               defaultValue={data?.fetchUseditem.contents ?? ""}
@@ -149,11 +148,15 @@ export default function ItemWrite(props: IItemWrite) {
                   multiple={true}
                 />
                 <img
-                  src={`https://storage.googleapis.com/${imageUrls[index]}`}
+                  src={
+                    imageUrls[index] === ""
+                      ? `https://storage.googleapis.com/${data?.fetchUseditem.images[index]}`
+                      : `https://storage.googleapis.com/${imageUrls[index]}`
+                  }
                 />
               </div>
             ))}
-            <S.Dived></S.Dived>
+            <S.Divide></S.Divide>
           </div>
           <S.BtnBox>
             <S.Delete

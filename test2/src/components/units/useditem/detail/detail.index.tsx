@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import {
   IMutation,
+  IMutationCreatePointTransactionOfBuyingAndSellingArgs,
   IMutationDeleteUseditemArgs,
   IMutationToggleUseditemPickArgs,
   IQuery,
@@ -28,13 +29,21 @@ const FETCH_ITEM = gql`
         name
       }
       images
-      # pickedCount
+      pickedCount
       # buyer
       # useditemAddress {
       #   zipcode
       #   address
       #   addressDetail
       # }
+    }
+  }
+`;
+
+const CREATE_BUY = gql`
+  mutation createPointTransactionOfBuyingAndSelling($useritemId: ID!) {
+    createPointTransactionOfBuyingAndSelling(useritemId: $useritemId) {
+      _id
     }
   }
 `;
@@ -50,6 +59,10 @@ const DELETE_ITEM = gql`
     deleteUseditem(useditemId: $useditemId)
   }
 `;
+
+// const FETCH_PICK = gql`
+//   query fetchUseditemsCountIPicked()
+// `;
 
 export default function ItemDetail(): JSX.Element {
   const router = useRouter();
@@ -69,6 +82,10 @@ export default function ItemDetail(): JSX.Element {
       useditemId: String(router.query.useditemId),
     },
   });
+  const [createPoint] = useMutation<
+    Pick<IMutation, "createPointTransactionOfBuyingAndSelling">,
+    IMutationCreatePointTransactionOfBuyingAndSellingArgs
+  >(CREATE_BUY);
 
   const onClickMoveEdit = () => {
     router.push(`/usedItems/${router.query.useditemId}/edit`);
@@ -86,6 +103,15 @@ export default function ItemDetail(): JSX.Element {
     });
     alert("삭제되었습니다.");
     router.push("http://localhost:3000");
+  };
+
+  const onClickBuy = async () => {
+    await createPoint({
+      variables: {
+        useritemId: String(router.query.useditemId),
+      },
+    });
+    alert("상품을 구매하였습니다.");
   };
 
   const onClickPick = () => {
@@ -150,14 +176,24 @@ export default function ItemDetail(): JSX.Element {
             <S.Divide1></S.Divide1>
             <S.ItemContents>
               {data?.fetchUseditem?.remarks}
-              <div>태그</div>
+              <div></div>
             </S.ItemContents>
 
             <S.Divide2></S.Divide2>
             <S.BtnBox>
-              <S.PickBtn onClick={onClickPick}>찜</S.PickBtn>
-              <S.BasketBtn onClick={onClickBasket}>장바구니</S.BasketBtn>
-              <S.BuyBtn>바로구매</S.BuyBtn>
+              <S.PickBtn
+                onClick={onClickPick}
+                style={{
+                  backgroundColor:
+                    data?.fetchUseditem.pickedCount !== 0 ? "black" : "#a0a0a0",
+                }}
+              >
+                <S.Heart src="/heart.png" /> 찜{data?.fetchUseditem.pickedCount}
+              </S.PickBtn>
+              <S.BasketBtn onClick={onClickBasket(data?.fetchUseditem)}>
+                장바구니
+              </S.BasketBtn>
+              <S.BuyBtn onClick={onClickBuy}>바로구매</S.BuyBtn>
             </S.BtnBox>
           </div>
         </S.TopWrapper>
@@ -183,6 +219,7 @@ export default function ItemDetail(): JSX.Element {
               </S.Images> */}
               {typeof window !== "undefined" && (
                 <div
+                  style={{ wordBreak: "break-all" }}
                   dangerouslySetInnerHTML={{
                     __html: DOMPurify.sanitize(
                       String(data?.fetchUseditem?.contents)

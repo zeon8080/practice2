@@ -63,6 +63,7 @@ export const useClickComment = () => {
       });
       console.log(result);
       alert("질문이 등록되었습니다.");
+      window.location.reload();
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }

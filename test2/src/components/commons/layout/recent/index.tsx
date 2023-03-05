@@ -44,7 +44,7 @@ export default function LayoutRecent() {
     if (typeof window !== "undefined") {
       const todayFunc = () => {
         let recent = JSON.parse(sessionStorage.getItem("todays"));
-        setTodayList(recent.slice(0, 3));
+        if (recent !== null) setTodayList(recent.slice(0, 3));
       };
 
       todayFunc();

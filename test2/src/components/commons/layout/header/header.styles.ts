@@ -67,3 +67,15 @@ export const Charge = styled.div`
   text-decoration: underline;
   cursor: pointer;
 `;
+
+export const Basket = styled.div`
+  background-color: #ffe004;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  text-align: center;
+  line-height: 20px;
+  margin-left: 5px;
+  color: white;
+`;

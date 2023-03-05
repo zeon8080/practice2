@@ -42,7 +42,7 @@ export interface IItemWrite {
 }
 
 export const useClickNew = () => {
-  const fileRef = useRef(null);
+  // const fileRef = useRef(null);
   const router = useRouter();
   const [imageUrls, setImageUrls] = useState(["", ""]);
   const [uploadFile] = useMutation<
@@ -74,6 +74,7 @@ export const useClickNew = () => {
 
   const onClickNew = async (data: IItemWrite) => {
     console.log(data);
+
     try {
       if (data.name && data.remarks && data.contents && data.price) {
         const result = await createItem({
@@ -97,5 +98,9 @@ export const useClickNew = () => {
     }
   };
 
-  return { onClickNew, onChangeFile, imageUrls, fileRef };
+  // const onClickUpload = () => {
+  //   fileRef.current?.click();
+  // };
+
+  return { onClickNew, onChangeFile, imageUrls };
 };

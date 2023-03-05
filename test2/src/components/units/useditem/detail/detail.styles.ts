@@ -67,11 +67,19 @@ export const PickBtn = styled.button`
   width: 152px;
   height: 100px;
   color: white;
-  background-color: black;
+  /* background-color: #a0a0a0; */
   font-size: 30px;
   font-weight: 700;
   border: none;
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Heart = styled.img`
+  margin-right: 5px;
 `;
 
 export const BasketBtn = styled.button`

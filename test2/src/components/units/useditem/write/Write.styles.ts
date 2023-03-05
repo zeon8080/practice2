@@ -17,7 +17,7 @@ export const Title = styled.div`
   font-weight: 700;
 `;
 
-export const Dived = styled.div`
+export const Divide = styled.div`
   width: 1373px;
   border-top: 3px solid #555555;
   margin-top: 42px;
